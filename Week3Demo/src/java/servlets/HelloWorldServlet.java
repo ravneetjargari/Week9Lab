@@ -25,9 +25,18 @@ public class HelloWorldServlet extends HttpServlet {
             throws ServletException, IOException {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
-        
         request.setAttribute("firstname", firstname);
         request.setAttribute("lastname",lastname);
+        
+        if(firstname== null || firstname.equals("")|| lastname == null|| lastname.equals("")){
+            request.setAttribute("firstname", firstname);
+            request.setAttribute("lastname",lastname);
+            getServletContext().getRequestDispatcher("/WEB-INF/helloWorldForm.jsp")
+                .forward(request, response);
+            return;
+        }
+        
+        
         
         getServletContext().getRequestDispatcher("/WEB-INF/sayHello.jsp")
                 .forward(request, response);
